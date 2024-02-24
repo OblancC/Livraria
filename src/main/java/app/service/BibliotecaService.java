@@ -3,40 +3,40 @@ package app.service;
 import java.util.List;
 import java.util.Optional;
 
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import app.entity.Biblioteca;
 import app.repository.BibliotecaRepository;
+
 @Service
 public class BibliotecaService {
 
-	@Autowired
+	@Resource
 	private BibliotecaRepository bibliotecaRepository;
 	
 	public String save(Biblioteca biblioteca) {
-		this.bibliotecaRepository.save(biblioteca);
-		return "Livro Salvo";
+		bibliotecaRepository.save(biblioteca);
+		return "Salvo com Sucesso!";
 	}
 	
 	public Biblioteca findById(Long id) {
-		Optional<Biblioteca> biblioteca = this.bibliotecaRepository.findById(id);
-		return biblioteca.get();
+		return bibliotecaRepository.findById(id).orElseThrow(() -> new RuntimeException("Biblioteca não encontrada"));
 	}
 	
 	public List<Biblioteca> listAll(){
-		List<Biblioteca> biblioteca = this.bibliotecaRepository.findAll();
-		return biblioteca;
+		return bibliotecaRepository.findAll();
 	}
 	
 	public String delete(Long id) {
-		this.bibliotecaRepository.deleteById(id);
-		return "Deletado Com Sucesso"; 
+		bibliotecaRepository.deleteById(id);
+		return "Deletado Com Sucesso";
 	}
 	
 	public String update(Biblioteca biblioteca, long id) {
 		biblioteca.setId(id);
-		this.bibliotecaRepository.save(biblioteca);
+		bibliotecaRepository.save(biblioteca);
 		return "Alterado com Sucesso!";
 	}
 }
