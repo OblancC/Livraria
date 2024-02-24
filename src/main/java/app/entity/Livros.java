@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Getter
@@ -22,5 +23,6 @@ public class Livros {
     private int numeropagina;
     private String issn;
     private String sinopse;
-    private String titulo;	
+    private String titulo;
+
 }

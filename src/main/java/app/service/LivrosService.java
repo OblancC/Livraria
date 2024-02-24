@@ -1,9 +1,8 @@
 package app.service;
 
 import java.util.List;
-import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import app.entity.Livros;
@@ -12,32 +11,30 @@ import app.repository.LivrosRepository;
 @Service
 public class LivrosService {
 
-	@Autowired
+	@Resource
 	private LivrosRepository livrosRepository;
 
 	public String save(Livros livros){
-		this.livrosRepository.save(livros);
+		livrosRepository.save(livros);
 		return "Livro Salvo";
 	}
 
 	public Livros findById(Long id){
-		Optional<Livros> livros = this.livrosRepository.findById(id);
-		return livros.get();
+		return livrosRepository.findById(id).orElseThrow(() -> new RuntimeException("Livro não encontrado"));
 	}
 
 	public List<Livros> listAll(){
-		List<Livros> livros = this.livrosRepository.findAll();
-		return livros;
+		return livrosRepository.findAll();
 	}
 
 	public String delete(Long id) {
-		this.livrosRepository.deleteById(id);	
+		livrosRepository.deleteById(id);
 		return "Deletado Com Sucesso";
 	}
 	
 	public String update(Livros livros, long id) {
 		livros.setId(id);
-		this.livrosRepository.save(livros);
+		livrosRepository.save(livros);
 		return "Alterado com Sucesso!";
 	}
 }
