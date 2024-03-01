@@ -27,12 +27,13 @@ public class AutorController {
 	public ResponseEntity<String> save(@RequestBody Autor autor) {
 		
 		try {
-			System.out.printIn(Autor.getNome());
+			System.out.println(autor.getNome());
 			String mensagem = this.autorService.save(autor);
-			return new ResponseEntity<String>(mensagem, HttpStatus.OK)
+			return new ResponseEntity<String>(mensagem, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<String> ("Erro detectado", HttpStatus.BAD_REQUEST);
 		}
+	}
 		
 		@GetMapping("/findById/{id}")
 		public ResponseEntity<Autor> findById(@PathVariable Long id){
@@ -42,13 +43,17 @@ public class AutorController {
 			} catch (Exception e) {
 				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 			}
+		}
 			
 			@GetMapping("/listAll")
 			public ResponseEntity<List<Autor>> listAll() {
 				try {
-						List<Autor> lista = this.autorService.All();
+						List<Autor> autor = this.autorService.listAll();
 						return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+				} catch(Exception e) {
+					return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
 				}
+			}
 				
 			@PutMapping("/update/{id}")
 			public ResponseEntity<String> update(@PathVariable long id, @RequestBody Autor autor){
@@ -59,7 +64,4 @@ public class AutorController {
 					return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 				}
 			}
-			}
 		}
-	}
-}

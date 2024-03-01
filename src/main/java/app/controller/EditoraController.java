@@ -28,12 +28,13 @@ public class EditoraController {
 	public ResponseEntity<String> save(@RequestBody Editora editora)  {
 		
 		try {
-			System.out.printIn(editora.getNome());
+			System.out.println(editora.getNome());
 			String mensagem = this.editoraService.save(editora);
-			return new ResponseEntity<String>(mensagem, HttpStatus.OK)
+			return new ResponseEntity<String>(mensagem, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<String> ("Erro detectado", HttpStatus.BAD_REQUEST);
 		}
+	}
 		
 		@GetMapping("/findById/{id}")
 		public ResponseEntity<Editora> findById(@PathVariable Long id) {
@@ -43,13 +44,17 @@ public class EditoraController {
 			} catch(Exception e) {
 				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 			}
+		}
 			
 		@GetMapping("/listAll")
 		public ResponseEntity<List<Editora>> listAll(){
 				try {
-						List<Editora> lista = this.editoraService.All();
+						List<Editora> lista = this.editoraService.listAll();
 						return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+			}catch (Exception e) {
+				return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
 			}
+		}
 			
 		@PutMapping("/update/{id}")
 		public ResponseEntity<String> update(@PathVariable long id, @RequestBody Editora editora){
@@ -59,9 +64,10 @@ public class EditoraController {
 			} catch(Exception e) {
 					return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
 			}
+		}
 			
 		@DeleteMapping("/delete/{id}")
-		public ResponseEntity<String> delete(@PathVarible long id) {
+		public ResponseEntity<String> delete(@PathVariable long id) {
 			try {
 				String mensagem = this.editoraService.delete(id);
 				return new ResponseEntity<>(mensagem, HttpStatus.OK);
@@ -69,8 +75,4 @@ public class EditoraController {
 				return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
 			}
 		}
-		}
-		}
-		}
-	}
 }
